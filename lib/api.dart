@@ -22,7 +22,7 @@ export './src/objects.dart';
 Future<JishoAPIResult> searchForPhrase(String phrase) async {
   final uri = uriForPhraseSearch(phrase);
   return await http
-      .get(uri)
+      .get(Uri.parse(uri))
       .then((response) => JishoAPIResult.fromJson(jsonDecode(response.body)));
 }
 
@@ -30,7 +30,7 @@ Future<JishoAPIResult> searchForPhrase(String phrase) async {
 Future<KanjiResult> searchForKanji(String kanji) async {
   final uri = uriForKanjiSearch(kanji);
   return http
-      .get(uri)
+      .get(Uri.parse(uri))
       .then((response) => parseKanjiPageData(response.body, kanji));
 }
 
@@ -38,7 +38,7 @@ Future<KanjiResult> searchForKanji(String kanji) async {
 Future<ExampleResults> searchForExamples(String phrase) async {
   final uri = uriForExampleSearch(phrase);
   return http
-      .get(uri)
+      .get(Uri.parse(uri))
       .then((response) => parseExamplePageData(response.body, phrase));
 }
 
@@ -51,7 +51,7 @@ Future<ExampleResults> searchForExamples(String phrase) async {
 /// instead of かかる (no results).
 Future<PhrasePageScrapeResult> scrapeForPhrase(String phrase) async {
   final uri = uriForPhraseScrape(phrase);
-  final response = await http.get(uri);
+  final response = await http.get(Uri.parse(uri));
   if (response.statusCode == 404) {
     return PhrasePageScrapeResult(
       query: phrase,
