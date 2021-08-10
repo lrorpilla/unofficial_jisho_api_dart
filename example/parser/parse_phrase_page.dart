@@ -9,7 +9,7 @@ final String searchURI = jisho_parser.uriForPhraseScrape(searchExample);
 
 void main() async {
 
-  await http.get(searchURI).then((result) {
+  await http.get(Uri.parse(searchURI)).then((result) {
     final parsedResult = jisho_parser.parsePhrasePageData(result.body, searchExample);
     print(encoder.convert(parsedResult));
   });

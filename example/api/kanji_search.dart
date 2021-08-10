@@ -10,9 +10,9 @@ void main() async {
     print('Stroke count: ${result.strokeCount}');
     print('Meaning: ${result.meaning}');
     print('Kunyomi: ${jsonEncode(result.kunyomi)}');
-    print('Kunyomi example: ${jsonEncode(result.kunyomiExamples[0])}');
+    print('Kunyomi example: ${jsonEncode(result.kunyomiExamples![0])}');
     print('Onyomi: ${jsonEncode(result.onyomi)}');
-    print('Onyomi example: ${jsonEncode(result.onyomiExamples[0])}');
+    print('Onyomi example: ${jsonEncode(result.onyomiExamples![0])}');
     print('Radical: ${jsonEncode(result.radical)}');
     print('Parts: ${jsonEncode(result.parts)}');
     print('Stroke order diagram: ${result.strokeOrderDiagramUri}');

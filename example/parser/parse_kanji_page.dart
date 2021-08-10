@@ -8,7 +8,7 @@ const String searchKanji = '車';
 final String searchURI = jisho_parser.uriForKanjiSearch(searchKanji);
 
 void main() async {
-  await http.get(searchURI).then((result) {
+  await http.get(Uri.parse(searchURI)).then((result) {
     final parsedResult = jisho_parser.parseKanjiPageData(result.body, searchKanji);
     print('JLPT level: ${parsedResult.jlptLevel}');
     print('Stroke count: ${parsedResult.strokeCount}');

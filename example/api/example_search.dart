@@ -7,7 +7,7 @@ void main() async {
     print('');
 
     for (var i = 0; i < 3; i++) {
-      var example = result.results[i];
+      var example = result.results![i];
       print(example.kanji);
       print(example.kana);
       print(example.english);
