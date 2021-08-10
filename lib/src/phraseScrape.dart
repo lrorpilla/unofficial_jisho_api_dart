@@ -32,9 +32,9 @@ List<KanjiKanaPair> _getOtherForms(Element child) {
 List<String> _getNotes(Element child) => child.text.split('\n');
 
 String _getMeaning(Element child) =>
-    child.querySelector('.meaning-meaning').text;
+    child.querySelector('.meaning-meaning')!.text;
 
-String _getMeaningAbstract(Element child) {
+String? _getMeaningAbstract(Element child) {
   final meaningAbstract = child.querySelector('.meaning-abstract');
   if (meaningAbstract == null) return null;
 
@@ -76,10 +76,10 @@ List<PhraseScrapeSentence> _getSentences(Element child) {
       sentenceIndex += 1) {
     final sentenceElement = sentenceElements[sentenceIndex];
 
-    final english = sentenceElement.querySelector('.english').text;
+    final english = sentenceElement.querySelector('.english')!.text;
     final pieces = getPieces(sentenceElement);
 
-    sentenceElement.querySelector('.english').remove();
+    sentenceElement.querySelector('.english')!.remove();
     for (var element in sentenceElement.children[0].children) {
       element.querySelector('.furigana')?.remove();
     }
@@ -128,7 +128,7 @@ PhrasePageScrapeResult _getMeaningsOtherFormsAndNotes(Document document) {
         definition: meaning,
         supplemental: supplemental ?? [],
         definitionAbstract: meaningAbstract,
-        tags: mostRecentWordTypes ?? [],
+        tags: mostRecentWordTypes as List<String>? ?? [],
       ));
     }
   }
@@ -149,7 +149,7 @@ PhrasePageScrapeResult parsePhrasePageData(String pageHtml, String query) {
   final result = _getMeaningsOtherFormsAndNotes(document);
 
   result.query = query;
-  if (!result.found) return result;
+  if (!result.found!) return result;
   result.uri = uriForPhraseScrape(query);
   result.tags = _getTags(document);
 

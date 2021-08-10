@@ -41,7 +41,7 @@ List<Element> _getChildrenAndSymbols(Element ul) {
 }
 
 ExampleResultData _getKanjiAndKana(Element div) {
-  final ul = div.querySelector('ul');
+  final ul = div.querySelector('ul')!;
   final contents = _getChildrenAndSymbols(ul);
 
   var kanji = '';
@@ -54,7 +54,7 @@ ExampleResultData _getKanjiAndKana(Element div) {
       final unlifted = li.querySelector('.unlinked')?.text;
 
       if (furigana != null) {
-        kanji += unlifted;
+        kanji += unlifted!;
         kana += furigana;
 
         final kanaEnding = [];
@@ -69,7 +69,7 @@ ExampleResultData _getKanjiAndKana(Element div) {
 
         kana += kanaEnding.reversed.join('');
       } else {
-        kanji += unlifted;
+        kanji += unlifted!;
         kana += unlifted;
       }
     } else {
@@ -103,7 +103,7 @@ List<ExampleSentencePiece> getPieces(Element sentenceElement) {
 
 ExampleResultData _parseExampleDiv(Element div) {
   final result = _getKanjiAndKana(div);
-  result.english = div.querySelector('.english').text;
+  result.english = div.querySelector('.english')!.text;
   result.pieces = getPieces(div) ?? [];
 
   return result;

@@ -32,7 +32,7 @@ String _getStringBetweenIndicies(String data, int startIndex, int endIndex) {
   return _removeNewlines(result).trim();
 }
 
-String _getStringBetweenStrings(
+String? _getStringBetweenStrings(
     String data, String startString, String endString) {
   final regex = RegExp(
       '${RegExp.escape(startString)}(.*?)${RegExp.escape(endString)}',
@@ -45,7 +45,7 @@ String _getStringBetweenStrings(
 int _getIntBetweenStrings(
     String pageHtml, String startString, String endString) {
   final stringBetweenStrings =
-      _getStringBetweenStrings(pageHtml, startString, endString);
+      _getStringBetweenStrings(pageHtml, startString, endString)!;
   return int.parse(stringBetweenStrings);
 }
 
@@ -53,7 +53,7 @@ List<String> _getAllGlobalGroupMatches(String str, RegExp regex) {
   var regexResults = regex.allMatches(str).toList();
   List<String> results = [];
   for (var match in regexResults) {
-    results.add(match.group(1));
+    results.add(match.group(1)!);
   }
 
   return results;
@@ -78,7 +78,7 @@ List<String> _getOnyomi(String pageHtml) {
   return _getYomi(pageHtml, _onyomiLocatorSymbol);
 }
 
-List<YomiExample> _getYomiExamples(String pageHtml, String yomiLocatorSymbol) {
+List<YomiExample>? _getYomiExamples(String pageHtml, String yomiLocatorSymbol) {
   final locatorString = '<h2>$yomiLocatorSymbol reading compounds</h2>';
   final exampleSection =
       _getStringBetweenStrings(pageHtml, locatorString, '</ul>');
@@ -102,15 +102,15 @@ List<YomiExample> _getYomiExamples(String pageHtml, String yomiLocatorSymbol) {
   return examples.toList();
 }
 
-List<YomiExample> _getOnyomiExamples(String pageHtml) {
+List<YomiExample>? _getOnyomiExamples(String pageHtml) {
   return _getYomiExamples(pageHtml, _onyomiLocatorSymbol);
 }
 
-List<YomiExample> _getKunyomiExamples(String pageHtml) {
+List<YomiExample>? _getKunyomiExamples(String pageHtml) {
   return _getYomiExamples(pageHtml, _kunyomiLocatorSymbol);
 }
 
-Radical _getRadical(String pageHtml) {
+Radical? _getRadical(String pageHtml) {
   const radicalMeaningStartString = '<span class="radical_meaning">';
   const radicalMeaningEndString = '</span>';
 
@@ -118,7 +118,7 @@ Radical _getRadical(String pageHtml) {
     pageHtml,
     radicalMeaningStartString,
     radicalMeaningEndString,
-  ).trim();
+  )?.trim();
 
   if (radicalMeaning != null) {
     final radicalMeaningStartIndex =
@@ -169,7 +169,7 @@ List<String> _getParts(String pageHtml) {
     pageHtml,
     partsSectionStartString,
     partsSectionEndString,
-  );
+  )!;
 
   var result = _parseAnchorsToArray(partsSection);
   result.sort();
@@ -177,9 +177,9 @@ List<String> _getParts(String pageHtml) {
   return (result);
 }
 
-String _getSvgUri(String pageHtml) {
+String? _getSvgUri(String pageHtml) {
   var svgRegex = RegExp('\/\/.*?.cloudfront.net\/.*?.svg');
-  final regexResult = svgRegex.firstMatch(pageHtml).group(0).toString();
+  final regexResult = svgRegex.firstMatch(pageHtml)!.group(0).toString();
   return regexResult.isNotEmpty ? 'https:$regexResult' : null;
 }
 
@@ -192,12 +192,12 @@ String _getGifUri(String kanji) {
   return animationUri;
 }
 
-int _getNewspaperFrequencyRank(String pageHtml) {
+int? _getNewspaperFrequencyRank(String pageHtml) {
   final frequencySection =
       _getStringBetweenStrings(pageHtml, '<div class="frequency">', '</div>');
   return (frequencySection != null)
       ? int.parse(
-          _getStringBetweenStrings(frequencySection, '<strong>', '</strong>'))
+          _getStringBetweenStrings(frequencySection, '<strong>', '</strong>')!)
       : null;
 }
 
@@ -219,7 +219,7 @@ KanjiResult parseKanjiPageData(String pageHtml, String kanji) {
       _getIntBetweenStrings(pageHtml, '<strong>', '</strong> strokes');
   result.meaning = _htmlUnescape.convert(_removeNewlines(
           _getStringBetweenStrings(
-              pageHtml, '<div class="kanji-details__main-meanings">', '</div>'))
+              pageHtml, '<div class="kanji-details__main-meanings">', '</div>')!)
       .trim());
   result.kunyomi = _getKunyomi(pageHtml) ?? [];
   result.onyomi = _getOnyomi(pageHtml) ?? [];

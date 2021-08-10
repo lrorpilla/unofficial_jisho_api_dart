@@ -4,25 +4,25 @@
 
 class YomiExample {
   /// The original text of the example.
-  String example;
+  String? example;
   /// The reading of the example.
-  String reading;
+  String? reading;
   /// The meaning of the example.
-  String meaning;
+  String? meaning;
 
   YomiExample({this.example, this.reading, this.meaning});
 
-  Map<String, String> toJson() =>
+  Map<String, String?> toJson() =>
       {'example': example, 'reading': reading, 'meaning': meaning};
 }
 
 class Radical {
   /// The radical symbol, if applicable.
-  String symbol;
+  String? symbol;
   /// The radical forms used in this kanji, if applicable.
-  List<String> forms;
+  List<String>? forms;
   /// The meaning of the radical, if applicable.
-  String meaning;
+  String? meaning;
 
   Radical({this.symbol, this.forms, this.meaning});
 
@@ -32,42 +32,42 @@ class Radical {
 
 class KanjiResult {
   /// True if results were found.
-  String query;
+  String? query;
   /// The term that you searched for.
-  bool found;
+  bool? found;
 
   /// The school level that the kanji is taught in, if applicable.
-  String taughtIn;
+  String? taughtIn;
   /// The lowest JLPT exam that this kanji is likely to appear in, if applicable.
   /// 
   /// 'N5' or 'N4' or 'N3' or 'N2' or 'N1'.
-  String jlptLevel;
+  String? jlptLevel;
   /// A number representing this kanji's frequency rank in newspapers, if applicable.
-  int newspaperFrequencyRank;
+  int? newspaperFrequencyRank;
   /// How many strokes this kanji is typically drawn in, if applicable.
-  int strokeCount;
+  int? strokeCount;
   /// The meaning of the kanji, if applicable.
-  String meaning;
+  String? meaning;
   /// This character's kunyomi, if applicable.
-  List<String> kunyomi;
+  List<String>? kunyomi;
   /// This character's onyomi, if applicable.
-  List<String> onyomi;
+  List<String>? onyomi;
   /// Examples of this character's kunyomi being used, if applicable.
-  List<YomiExample> kunyomiExamples;
+  List<YomiExample>? kunyomiExamples;
   /// Examples of this character's onyomi being used, if applicable.
-  List<YomiExample> onyomiExamples;
+  List<YomiExample>? onyomiExamples;
   /// Information about this character's radical, if applicable.
-  Radical radical;
+  Radical? radical;
   /// The parts used in this kanji, if applicable.
-  List<String> parts;
+  List<String>? parts;
   /// The URL to a diagram showing how to draw this kanji step by step, if applicable.
-  String strokeOrderDiagramUri;
+  String? strokeOrderDiagramUri;
   /// The URL to an SVG describing how to draw this kanji, if applicable.
-  String strokeOrderSvgUri;
+  String? strokeOrderSvgUri;
   ///  The URL to a gif showing the kanji being draw and its stroke order, if applicable.
-  String strokeOrderGifUri;
+  String? strokeOrderGifUri;
   /// The URI that these results were scraped from, if applicable.
-  String uri;
+  String? uri;
 
   KanjiResult(
       {this.query,
@@ -101,7 +101,7 @@ class KanjiResult {
       'onyomi': onyomi,
       'onyomiExamples': onyomiExamples,
       'kunyomiExamples': kunyomiExamples,
-      'radical': (radical != null) ? radical.toJson() : null,
+      'radical': (radical != null) ? radical!.toJson() : null,
       'parts': parts,
       'strokeOrderDiagramUri': strokeOrderDiagramUri,
       'strokeOrderSvgUri': strokeOrderSvgUri,
@@ -117,9 +117,9 @@ class KanjiResult {
 
 class ExampleSentencePiece {
   /// Baseline text shown on Jisho.org (below the lifted text / furigana)
-  String lifted;
+  String? lifted;
   /// Furigana text shown on Jisho.org (above the unlifted text)
-  String unlifted;
+  String? unlifted;
 
   ExampleSentencePiece({this.lifted, this.unlifted});
 
@@ -130,13 +130,13 @@ class ExampleSentencePiece {
 
 class ExampleResultData {
   /// The example sentence including kanji.
-  String kanji;
+  String? kanji;
   /// The example sentence without kanji (only kana). Sometimes this may include some Kanji, as furigana is not always available from Jisho.org.
-  String kana;
+  String? kana;
   /// An English translation of the example.
-  String english;
+  String? english;
   /// The lifted/unlifted pairs that make up the sentence. Lifted text is furigana, unlifted is the text below the furigana.
-  List<ExampleSentencePiece> pieces;
+  List<ExampleSentencePiece>? pieces;
 
   ExampleResultData({this.english, this.kanji, this.kana, this.pieces});
 
@@ -147,13 +147,13 @@ class ExampleResultData {
 
 class ExampleResults {
   /// The term that you searched for.
-  String query;
+  String? query;
   /// True if results were found.
-  bool found;
+  bool? found;
   /// The URI that these results were scraped from.
-  String uri;
+  String? uri;
   /// The examples that were found, if any.
-  List<ExampleResultData> results;
+  List<ExampleResultData>? results;
 
   ExampleResults({this.query, this.found, this.results, this.uri});
 
@@ -173,11 +173,11 @@ class ExampleResults {
 
 class PhraseScrapeSentence {
   /// The English meaning of the sentence.
-  String english;
+  String? english;
   /// The Japanese text of the sentence.
-  String japanese;
+  String? japanese;
   /// The lifted/unlifted pairs that make up the sentence. Lifted text is furigana, unlifted is the text below the furigana.
-  List<ExampleSentencePiece> pieces;
+  List<ExampleSentencePiece>? pieces;
 
   PhraseScrapeSentence({this.english, this.japanese, this.pieces});
 
@@ -187,19 +187,19 @@ class PhraseScrapeSentence {
 
 class PhraseScrapeMeaning {
   /// The words that Jisho lists as "see also".
-  List<String> seeAlsoTerms;
+  List<String>? seeAlsoTerms;
   /// Example sentences for this meaning.
-  List<PhraseScrapeSentence> sentences;
+  List<PhraseScrapeSentence>? sentences;
   /// The definition of the meaning
-  String definition;
+  String? definition;
   /// Supplemental information.
   /// For example "usually written using kana alone".
-  List<String> supplemental;
+  List<String>? supplemental;
   /// An "abstract" definition.
   /// Often this is a Wikipedia definition.
-  String definitionAbstract;
+  String? definitionAbstract;
   /// Tags associated with this meaning.
-  List<String> tags;
+  List<String>? tags;
 
   PhraseScrapeMeaning(
       {this.seeAlsoTerms,
@@ -220,29 +220,29 @@ class PhraseScrapeMeaning {
 }
 
 class KanjiKanaPair {
-  String kanji;
-  String kana;
+  String? kanji;
+  String? kana;
 
   KanjiKanaPair({this.kanji, this.kana});
 
-  Map<String, String> toJson() => {'kanji': kanji, 'kana': kana};
+  Map<String, String?> toJson() => {'kanji': kanji, 'kana': kana};
 }
 
 class PhrasePageScrapeResult {
   /// True if a result was found.
-  bool found;
+  bool? found;
   /// The term that you searched for.
-  String query;
+  String? query;
   /// The URI that these results were scraped from, if a result was found.
-  String uri;
+  String? uri;
   /// Other forms of the search term, if a result was found.
-  List<String> tags;
+  List<String>? tags;
   /// Information about the meanings associated with this search result.
-  List<PhraseScrapeMeaning> meanings;
+  List<PhraseScrapeMeaning>? meanings;
   /// Tags associated with this search result.
-  List<KanjiKanaPair> otherForms;
+  List<KanjiKanaPair>? otherForms;
   /// Notes associated with the search result.
-  List<String> notes;
+  List<String>? notes;
 
   PhrasePageScrapeResult(
       {this.found,
@@ -269,43 +269,43 @@ class PhrasePageScrapeResult {
 /* -------------------------------------------------------------------------- */
 
 class JishoJapaneseWord {
-  String word;
-  String reading;
+  String? word;
+  String? reading;
 
   JishoJapaneseWord({this.word, this.reading});
 
   factory JishoJapaneseWord.fromJson(Map<String, dynamic> json) {
     return JishoJapaneseWord(
-        word: json['word'] as String, reading: json['reading'] as String);
+        word: json['word'] as String?, reading: json['reading'] as String?);
   }
 
   Map<String, dynamic> toJson() => {'word': word, 'reading': reading};
 }
 
 class JishoSenseLink {
-  String text;
-  String url;
+  String? text;
+  String? url;
 
   JishoSenseLink({this.text, this.url});
 
   factory JishoSenseLink.fromJson(Map<String, dynamic> json) {
     return JishoSenseLink(
-        text: json['text'] as String, url: json['url'] as String);
+        text: json['text'] as String?, url: json['url'] as String?);
   }
 
   Map<String, dynamic> toJson() => {'text': text, 'url': url};
 }
 
 class JishoWordSense {
-  List<String> english_definitions;
-  List<String> parts_of_speech;
-  List<JishoSenseLink> links;
-  List<String> tags;
-  List<String> see_also;
-  List<String> antonyms;
-  List<dynamic> source;
-  List<String> info;
-  List<dynamic> restrictions;
+  List<String>? english_definitions;
+  List<String>? parts_of_speech;
+  List<JishoSenseLink>? links;
+  List<String>? tags;
+  List<String>? see_also;
+  List<String>? antonyms;
+  List<dynamic>? source;
+  List<String>? info;
+  List<dynamic>? restrictions;
 
   JishoWordSense(
       {this.english_definitions,
@@ -336,9 +336,9 @@ class JishoWordSense {
         antonyms: (json['antonyms'] as List)
             .map((result) => result as String)
             .toList(),
-        source: json['source'] as List<dynamic>,
+        source: json['source'] as List<dynamic>?,
         info: (json['info'] as List).map((result) => result as String).toList(),
-        restrictions: json['restrictions'] as List<dynamic>);
+        restrictions: json['restrictions'] as List<dynamic>?);
   }
 
   Map<String, dynamic> toJson() => {
@@ -355,9 +355,9 @@ class JishoWordSense {
 }
 
 class JishoAttribution {
-  bool jmdict;
-  bool jmnedict;
-  String dbpedia;
+  bool? jmdict;
+  bool? jmnedict;
+  String? dbpedia;
 
   JishoAttribution({this.jmdict, this.jmnedict, this.dbpedia});
 
@@ -375,13 +375,13 @@ class JishoAttribution {
 }
 
 class JishoResult {
-  String slug;
-  bool is_common;
-  List<String> tags;
-  List<String> jlpt;
-  List<JishoJapaneseWord> japanese;
-  List<JishoWordSense> senses;
-  JishoAttribution attribution;
+  String? slug;
+  bool? is_common;
+  List<String>? tags;
+  List<String>? jlpt;
+  List<JishoJapaneseWord>? japanese;
+  List<JishoWordSense>? senses;
+  JishoAttribution? attribution;
 
   JishoResult(
       {this.slug,
@@ -394,8 +394,8 @@ class JishoResult {
 
   factory JishoResult.fromJson(Map<String, dynamic> json) {
     return JishoResult(
-        slug: json['slug'] as String,
-        is_common: json['is_common'] as bool,
+        slug: json['slug'] as String?,
+        is_common: json['is_common'] as bool?,
         tags: (json['tags'] as List).map((result) => result as String).toList(),
         jlpt: (json['jlpt'] as List).map((result) => result as String).toList(),
         japanese: (json['japanese'] as List)
@@ -419,20 +419,20 @@ class JishoResult {
 }
 
 class JishoResultMeta {
-  int status;
+  int? status;
 
   JishoResultMeta({this.status});
 
   factory JishoResultMeta.fromJson(Map<String, dynamic> json) {
-    return JishoResultMeta(status: json['status'] as int);
+    return JishoResultMeta(status: json['status'] as int?);
   }
 
   Map<String, dynamic> toJson() => {'status': status};
 }
 
 class JishoAPIResult {
-  JishoResultMeta meta;
-  List<JishoResult> data;
+  JishoResultMeta? meta;
+  List<JishoResult>? data;
 
   JishoAPIResult({this.meta, this.data});
 
@@ -444,5 +444,5 @@ class JishoAPIResult {
             .toList());
   }
 
-  Map<String, dynamic> toJson() => {'meta': meta.toJson(), 'data': data};
+  Map<String, dynamic> toJson() => {'meta': meta!.toJson(), 'data': data};
 }
